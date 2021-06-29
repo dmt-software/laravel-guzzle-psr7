@@ -1,0 +1,36 @@
+{
+  "name": "dmt-software/laravel-guzzle-psr7",
+  "description": "Use guzzle for PSR-7 server-request and response",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bas de Mes",
+      "email": "bas@dmt-software.nl"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.3",
+    "symfony/psr-http-message-bridge": "^2.1",
+    "http-interop/http-factory-guzzle": "^1.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.18"
+  },
+  "autoload": {
+    "psr-4": {
+      "DMT\\Laravel\\Providers\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DMT\\Test\\Laravel\\Providers\\": "tests//"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "DMT\\Laravel\\GuzzlePsrServiceProvider"
+      ]
+    }
+  }
+}
