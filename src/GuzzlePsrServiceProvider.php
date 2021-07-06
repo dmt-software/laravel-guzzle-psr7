@@ -7,6 +7,7 @@ use Http\Factory\Guzzle\ServerRequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Http\Factory\Guzzle\UploadedFileFactory;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,11 +17,11 @@ use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 /**
  * Class GuzzlePsrServiceProvider
  */
-class GuzzlePsrServiceProvider extends ServiceProvider
+class GuzzlePsrServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    public function register()
+    public function register(): void
     {
-        $this->app->singleton(HttpMessageFactoryInterface::class, function (Container $app) {
+        $this->app->singleton(HttpMessageFactoryInterface::class, function () {
             return new PsrHttpFactory(
                 new ServerRequestFactory(),
                 new StreamFactory(),
@@ -36,5 +37,14 @@ class GuzzlePsrServiceProvider extends ServiceProvider
         $this->app->singleton(ResponseInterface::class, function (Container $app) {
             return (new ResponseFactory())->createResponse();
         });
+    }
+
+    public function provides(): array
+    {
+        return [
+            HttpMessageFactoryInterface::class,
+            ServerRequestInterface::class,
+            ResponseInterface::class
+        ];
     }
 }

@@ -29,7 +29,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "DMT\\Laravel\\GuzzlePsrServiceProvider"
+        "DMT\\Laravel\\Providers\\GuzzlePsrServiceProvider"
       ]
     }
   }
