@@ -1,6 +1,6 @@
 # Laravel Guzzle PSR 7
 
-Enable Guzzle Http Client to act as provider for PSR-7 compliant ServerRequestInterface instances in Laravel.
+Enable Guzzle to act as provider for PSR-7 compliant ServerRequestInterface instances in Laravel.
 
 ## Installation
 ```
@@ -20,7 +20,7 @@ _config/app.php:
 
 ## Usage 
 
-```
+```php
 use Psr\Http\Message\ServerRequestInterface;
  
 Route::get('/', function (ServerRequestInterface $request) {

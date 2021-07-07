@@ -1,6 +1,7 @@
 {
   "name": "dmt-software/laravel-guzzle-psr7",
-  "description": "Use guzzle for PSR-7 server-request and response",
+  "description": "Use guzzle for PSR-7 server-request and response in Laravel 6 and up.",
+  "keywords": ["laravel","guzzle", "psr-7"],
   "license": "MIT",
   "authors": [
     {
