@@ -2,10 +2,7 @@
 
 namespace DMT\Laravel\Providers;
 
-use Http\Factory\Guzzle\ResponseFactory;
-use Http\Factory\Guzzle\ServerRequestFactory;
-use Http\Factory\Guzzle\StreamFactory;
-use Http\Factory\Guzzle\UploadedFileFactory;
+use GuzzleHttp\Psr7\HttpFactory;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
@@ -22,20 +19,17 @@ class GuzzlePsrServiceProvider extends ServiceProvider implements DeferrableProv
     public function register(): void
     {
         $this->app->singleton(HttpMessageFactoryInterface::class, function () {
-            return new PsrHttpFactory(
-                new ServerRequestFactory(),
-                new StreamFactory(),
-                new UploadedFileFactory(),
-                new ResponseFactory()
-            );
-        });
+            $httpFactory = new HttpFactory();
+
+            return new PsrHttpFactory($httpFactory, $httpFactory, $httpFactory, $httpFactory);
+       });
 
         $this->app->singleton(ServerRequestInterface::class, function (Container $app) {
             return $app->get(HttpMessageFactoryInterface::class)->createRequest($app->make('request'));
         });
 
         $this->app->singleton(ResponseInterface::class, function (Container $app) {
-            return (new ResponseFactory())->createResponse();
+            return (new HttpFactory())->createResponse();
         });
     }
 
